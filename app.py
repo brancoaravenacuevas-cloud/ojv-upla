@@ -101,7 +101,7 @@ def send_notification(case_id, record):
 
 @app.get('/')
 def home():
-    return render_template('caso1.html')
+    return render_template('inicio.html')
 
 
 @app.get('/caso/<case_id>')
