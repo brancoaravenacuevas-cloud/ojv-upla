@@ -148,7 +148,11 @@ def create_record(case_id):
         if file and filename:
             stored_name = f"{case_id}_{folio}_{os.urandom(8).hex()}_{filename}"
             with file.stream as f:
-    dbx.files_upload(f.read(), f'/OJV UPLA/{stored_name}', mode=dropbox.files.WriteMode.overwrite)
+    dbx.files_upload(
+        f.read(),
+        f'/OJV UPLA/{stored_name}',
+        mode=dropbox.files.WriteMode.overwrite
+    )
         cur = con.execute('''INSERT INTO records
             (case_id, folio, created_at, type, party, title, description, filename, stored_name)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)''',
