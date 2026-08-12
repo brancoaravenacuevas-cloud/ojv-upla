@@ -145,9 +145,9 @@ def create_record(case_id):
         row = con.execute('SELECT COALESCE(MAX(folio),0)+1 AS next_folio FROM records WHERE case_id=?', (case_id,)).fetchone()
         folio = int(row['next_folio'])
         stored_name = None
-    if file and filename:
-        stored_name = f"{case_id}_{folio}_{os.urandom(8).hex()}_{filename}"
-        with file.stream as f:
+        if file and filename:
+            stored_name = f"{case_id}_{folio}_{os.urandom(8).hex()}_{filename}"
+            with file.stream as f:
             dbx.files_upload(
                 f.read(),
                 f'/OJV UPLA/{stored_name}',
