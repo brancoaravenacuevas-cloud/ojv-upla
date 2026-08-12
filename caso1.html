@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Oficina Judicial Virtual — Simulación</title>
+<style>
+:root{--navy:#17324d;--blue:#245b86;--light:#f4f6f8;--border:#d8dee5;--text:#24313d;--muted:#657483;--green:#2f6f55;--red:#a63b3b}
+*{box-sizing:border-box} body{margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--text);background:#eef1f4}
+.top{background:var(--navy);color:#fff;padding:18px 34px;display:flex;justify-content:space-between;align-items:center}.brand{font-weight:700;font-size:20px}.sub{font-size:12px;opacity:.8;margin-top:4px}.badge{border:1px solid #8ea7ba;border-radius:4px;padding:7px 10px;font-size:12px;background:#203d57}
+.wrap{max-width:1250px;margin:24px auto;padding:0 18px}.crumb{font-size:12px;color:var(--muted);margin-bottom:14px}.card{background:#fff;border:1px solid var(--border);border-radius:5px;box-shadow:0 1px 2px #0000000a;margin-bottom:18px}.case{padding:20px 22px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px}.case h1{grid-column:1/-1;font-size:21px;margin:0 0 4px}.field label,.form label{display:block;font-size:11px;text-transform:uppercase;color:var(--muted);font-weight:bold;margin-bottom:5px}.value{font-size:14px}.tabs{display:flex;border-bottom:1px solid var(--border);background:#fafbfc}.tab{padding:13px 18px;font-size:13px;cursor:pointer;border-right:1px solid var(--border)}.tab.active{background:#fff;color:var(--blue);font-weight:bold;border-top:3px solid var(--blue);padding-top:10px}.panel{padding:20px}.grid{display:grid;grid-template-columns:1.15fr .85fr;gap:18px}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:13px}.full{grid-column:1/-1}.form input,.form select,.form textarea{width:100%;border:1px solid #cbd3db;border-radius:4px;padding:10px;font-size:13px;background:#fff}.form textarea{min-height:75px;resize:vertical}.button{background:var(--blue);color:#fff;border:0;border-radius:4px;padding:10px 15px;font-weight:bold;cursor:pointer}.button.secondary{background:#fff;color:var(--blue);border:1px solid #9fb1bf}.button.danger{background:#fff;color:var(--red);border:1px solid #d7a3a3}.hint{font-size:12px;color:var(--muted);line-height:1.5}.notice{background:#f7fafc;border-left:4px solid var(--blue);padding:11px 13px;font-size:12px;margin-top:12px}.tablewrap{overflow:auto}.table{width:100%;border-collapse:collapse;font-size:12px}.table th{background:#f1f4f7;text-align:left;color:#445563;font-size:11px;text-transform:uppercase}.table th,.table td{border-bottom:1px solid var(--border);padding:11px 9px;vertical-align:top}.folio{font-weight:700;color:var(--blue);white-space:nowrap}.type{font-weight:bold}.muted{color:var(--muted)}.actions button{margin-right:5px}.empty{text-align:center;padding:35px;color:var(--muted)}.footer{font-size:11px;color:#6b7782;text-align:center;padding:22px}.login{max-width:520px;margin:80px auto;background:white;border:1px solid var(--border);padding:30px;border-radius:6px}.login h2{margin-top:0}.hidden{display:none!important}.pill{display:inline-block;border-radius:12px;padding:4px 8px;font-size:10px;font-weight:bold;background:#e9f1f6;color:var(--blue)}
+@media(max-width:800px){.case,.grid,.formgrid{grid-template-columns:1fr}.top{padding:15px 18px}.wrap{margin:15px auto}.tabs{overflow:auto;white-space:nowrap}}
+</style>
+</head>
+<body><div style="background:#111827;color:white;padding:12px 20px;font-family:Arial,sans-serif;font-size:15px;font-weight:600;text-align:center;">1° Juzgado de Letras de Playa Ancha</div>
+<header class="top"><div><div class="brand">OFICINA JUDICIAL VIRTUAL</div><div class="sub">Plataforma académica de simulación procesal</div></div><div class="badge">SIMULACIÓN · NO OFICIAL</div></header>
+<main class="wrap">
+<div class="crumb">Inicio / Expedientes / Civil / RIT C-1842-2026</div>
+<section class="card case">
+<h1>Expediente C-1842-2026</h1>
+<div class="field"><label>Tribunal</label><div class="value">1.º Juzgado Civil de Playa Ancha</div></div>
+<div class="field"><label>Carátula</label><div class="value">Metalúrgica del Pacífico SpA / Envases del Sur Ltda.</div></div>
+<div class="field"><label>Materia</label><div class="value">&nbsp;</div></div>
+<div class="field"><label>Estado</label><div class="value"><span class="pill">En tramitación</span></div></div>
+<div class="field"><label>Fecha de apertura</label><div class="value">11/08/2026</div></div>
+<div class="field"><label>Documentos</label><div class="value" id="docCount">0</div></div>
+</section>
+<section class="card">
+<div class="tabs"><div class="tab active" data-tab="exp">Expediente</div><div class="tab" data-tab="ing">Ingresar actuación</div><div class="tab" data-tab="help">Instrucciones</div></div>
+<div id="exp" class="panel">
+<div class="grid">
+<div><h3 style="margin-top:0">Historia del expediente</h3><div class="tablewrap"><table class="table"><thead><tr><th>Folio</th><th>Fecha y hora</th><th>Tipo</th><th>Parte / órgano</th><th>Descripción</th><th>Archivo</th><th></th></tr></thead><tbody id="rows"></tbody></table></div><div id="empty" class="empty">No existen actuaciones ingresadas.</div></div>
+<div><h3 style="margin-top:0">Resumen</h3><div class="notice"><b>Foliación automática.</b><br>El sistema asigna el siguiente folio disponible según el orden en que se registra cada actuación. El usuario no puede escoger ni modificar el folio.</div><div class="notice"><b>Fecha y hora.</b><br>Se registra automáticamente con la fecha y hora registrada por el servidor al momento de ingresar la actuación.</div><div class="notice"><b>Archivos.</b><br>Los documentos se conservan en el expediente compartido del servidor. Las actuaciones ingresadas por cualquier usuario quedan disponibles para los demás usuarios.</div></div>
+</div></div>
+<div id="ing" class="panel hidden"><div class="grid"><div class="form"><h3 style="margin-top:0">Nueva actuación</h3><div class="formgrid">
+<div><label>Tipo de actuación</label><select id="type"><option>Escrito</option><option>Resolución</option><option>Acta</option><option>Certificación</option><option>Otro</option></select></div>
+<div><label>Presentado por</label><select id="party"><option>Metalúrgica del Pacífico SpA</option><option>Envases del Sur Ltda.</option><option>Tribunal</option><option>Otro</option></select></div>
+<div class="full"><label>Nombre / título del documento</label><input id="title" placeholder="Ej.: Contestación de la demanda"/></div>
+<div class="full"><label>Descripción breve</label><textarea id="desc" placeholder="Ej.: Contesta demanda y opone excepción de contrato no cumplido."></textarea></div>
+<div class="full"><label>Archivo</label><input id="file" type="file" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.txt"/><div class="hint">Se recomienda PDF. El archivo queda asociado al folio generado.</div></div>
+</div><div style="margin-top:15px"><button class="button" id="submit">Ingresar actuación y foliar</button></div></div>
+<div><h3 style="margin-top:0">Vista previa</h3><div class="notice"><b>El sistema generará:</b><br>Folio correlativo · fecha y hora · tipo · presentante · título · archivo.</div><p class="hint">Para efectos del ejercicio, puedes simular que cada estudiante ingresa sus actuaciones durante la audiencia o durante la tramitación del expediente.</p></div></div></div>
+<div id="help" class="panel hidden"><h3 style="margin-top:0">Instrucciones para el juicio simulado</h3><ol class="hint" style="font-size:13px;line-height:1.8"><li>Selecciona <b>Ingresar actuación</b>.</li><li>Indica si se trata de un escrito, resolución u otra actuación.</li><li>Selecciona quién la presenta.</li><li>Escribe el título y una descripción breve.</li><li>Adjunta el documento, si corresponde.</li><li>Presiona <b>Ingresar actuación y foliar</b> e ingresa la contraseña del tribunal cuando sea solicitada.</li><li>El expediente compartido asignará automáticamente el siguiente folio y registrará fecha y hora para todos los usuarios.</li><li>Desde la pestaña <b>Expediente</b> podrás abrir o descargar los archivos y revisar la secuencia completa.</li></ol><div class="notice"><b>Protección de actuaciones:</b> la eliminación de actuaciones y el borrado completo del expediente requieren la contraseña del tribunal.</div><div class="notice"><b>Importante:</b> esta página es una simulación académica. No corresponde a la Oficina Judicial Virtual real ni transmite información al Poder Judicial.</div><button class="button danger" id="clear">Borrar expediente</button></div>
+</section>
+<div class="footer">Sistema académico de simulación · Los datos se almacenan localmente en este navegador.</div>
+</main>
+<script>
+const CASE_ID='1';
+let records=[];
+const $=id=>document.getElementById(id);
+function esc(s){return String(s??'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]))}
+function fmt(d){return new Date(d).toLocaleString('es-CL',{dateStyle:'short',timeStyle:'medium'})}
+function render(){
+  $('docCount').textContent=records.length;
+  $('empty').style.display=records.length?'none':'block';
+  $('rows').innerHTML=records.map((r,i)=>`<tr><td class="folio">Folio ${r.folio}</td><td>${esc(fmt(r.created_at))}</td><td class="type">${esc(r.type)}</td><td>${esc(r.party)}</td><td><b>${esc(r.title)}</b><br><span class="muted">${esc(r.description||'')}</span></td><td>${r.filename?esc(r.filename):'<span class="muted">Sin archivo</span>'}</td><td class="actions">${r.filename?`<button class="button secondary" onclick="openFile(${r.id})">Abrir</button><button class="button secondary" onclick="downloadFile(${r.id})">Descargar</button>`:''}<button class="button danger" onclick="removeRecord(${r.id})">Eliminar</button></td></tr>`).join('');
+}
+async function loadRecords(){
+  try{const r=await fetch(`/api/casos/${CASE_ID}/actuaciones`,{cache:'no-store'}); const data=await r.json(); if(!r.ok)throw new Error(data.error||'Error'); records=data.actuaciones||[]; render();}
+  catch(e){console.error(e);}
+}
+function openFile(id){window.open(`/api/actuaciones/${id}/archivo`,'_blank')}
+function downloadFile(id){const a=document.createElement('a');a.href=`/api/actuaciones/${id}/archivo`;document.body.appendChild(a);a.click();a.remove()}
+async function removeRecord(id){
+  const pw=prompt('Esta acción requiere la contraseña del tribunal:'); if(pw===null)return;
+  if(!confirm('¿Eliminar esta actuación? La foliación se reconstruirá en el orden restante.'))return;
+  const fd=new FormData(); fd.append('password',pw);
+  const r=await fetch(`/api/casos/${CASE_ID}/actuaciones/${id}`,{method:'DELETE',body:fd}); const data=await r.json();
+  if(!r.ok){alert(data.error||'No fue posible eliminar la actuación.');return} loadRecords();
+}
+$('submit').onclick=async()=>{
+  const pw=prompt('Para ingresar una nueva actuación se requiere la contraseña de ingreso:'); if(pw===null)return;
+  const title=$('title').value.trim(); if(!title){alert('Debes ingresar el nombre o título del documento.');return}
+  const fd=new FormData(); fd.append('password',pw); fd.append('type',$('type').value); fd.append('party',$('party').value); fd.append('title',title); fd.append('desc',$('desc').value.trim());
+  const f=$('file').files[0]; if(f)fd.append('file',f);
+  const r=await fetch(`/api/casos/${CASE_ID}/actuaciones`,{method:'POST',body:fd}); const data=await r.json();
+  if(!r.ok){alert(data.error||'No fue posible ingresar la actuación.');return}
+  $('title').value='';$('desc').value='';$('file').value='';
+  if(data.email_sent===false) console.warn('Aviso por correo no enviado:',data.email_error);
+  await loadRecords(); document.querySelector('[data-tab="exp"]').click();
+};
+document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));t.classList.add('active');['exp','ing','help'].forEach(id=>$(id).classList.toggle('hidden',id!==t.dataset.tab));});
+$('clear').onclick=async()=>{
+  const pw=prompt('Esta acción requiere la contraseña del tribunal:'); if(pw===null)return;
+  if(!confirm('¿Borrar todas las actuaciones de este expediente?'))return;
+  const fd=new FormData(); fd.append('password',pw);
+  const r=await fetch(`/api/casos/${CASE_ID}/borrar`,{method:'POST',body:fd}); const data=await r.json();
+  if(!r.ok){alert(data.error||'No fue posible borrar el expediente.');return} loadRecords(); document.querySelector('[data-tab="exp"]').click();
+};
+loadRecords();
+setInterval(loadRecords,5000);
+</script>
+</body></html>

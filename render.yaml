@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: ojv-upla-simulada
+    runtime: docker
+    plan: free
+    autoDeploy: false
+    envVars:
+      - key: WRITE_PASSWORD
+        sync: false
+      - key: TRIBUNAL_PASSWORD
+        sync: false
+      - key: COURT_EMAIL
+        sync: false
+      - key: SMTP_USER
+        sync: false
+      - key: SMTP_APP_PASSWORD
+        sync: false
