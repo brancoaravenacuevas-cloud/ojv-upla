@@ -185,7 +185,7 @@ def create_record(case_id):
     return jsonify(ok=True, record=record, email_sent=email_ok, email_error=email_error)
 
 
-@app.get('/api/actuaciones/<int:record_id>/archivo'
+@app.get('/api/actuaciones/<int:record_id>/archivo')
 def record_file(record_id):
     con = db()
     row = con.execute('SELECT * FROM records WHERE id=?', (record_id,)).fetchone()
