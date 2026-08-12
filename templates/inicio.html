@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Oficina Judicial Virtual – Simulación</title>
+
+    <style>
+        :root {
+            --navy: #17324d;
+            --blue: #245b86;
+            --light: #f4f6f8;
+            --border: #d8dee5;
+            --text: #24313d;
+            --muted: #657483;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: var(--light);
+            color: var(--text);
+        }
+
+        header {
+            background: var(--navy);
+            color: white;
+            padding: 18px 34px;
+        }
+
+        .brand {
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .sub {
+            font-size: 13px;
+            opacity: 0.85;
+            margin-top: 4px;
+        }
+
+        .wrap {
+            max-width: 1100px;
+            margin: 30px auto;
+            padding: 0 18px;
+        }
+
+        .breadcrumb {
+            font-size: 13px;
+            color: var(--muted);
+            margin-bottom: 18px;
+        }
+
+        h1 {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+
+        .intro {
+            color: var(--muted);
+            margin-bottom: 25px;
+        }
+
+        .cases {
+            display: grid;
+            gap: 18px;
+        }
+
+        .case {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 22px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        }
+
+        .case h2 {
+            margin-top: 0;
+            color: var(--navy);
+        }
+
+        .case p {
+            margin: 8px 0;
+        }
+
+        .label {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--muted);
+            text-transform: uppercase;
+        }
+
+        .button {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 16px;
+            background: var(--blue);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+        }
+
+        .button:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="brand">OFICINA JUDICIAL VIRTUAL</div>
+    <div class="sub">Plataforma académica de simulación procesal</div>
+</header>
+
+<main class="wrap">
+
+    <div class="breadcrumb">
+        Inicio / Expedientes
+    </div>
+
+    <h1>Expedientes disponibles</h1>
+
+    <p class="intro">
+        Seleccione el expediente que desea consultar.
+    </p>
+
+    <div class="cases">
+
+        <section class="case">
+            <div class="label">Expediente C-1842-2026</div>
+            <h2>Metalúrgica del Pacífico SpA / Envases del Sur Ltda.</h2>
+
+            <p>
+                <strong>RIT:</strong> C-1842-2026
+            </p>
+
+            <a class="button" href="/caso/1">
+                Abrir expediente
+            </a>
+        </section>
+
+        <section class="case">
+            <div class="label">Expediente C-1967-2026</div>
+            <h2>Frío Industrial Austral SpA / Alimentos del Litoral Ltda.</h2>
+
+            <p>
+                <strong>RIT:</strong> C-1967-2026
+            </p>
+
+            <a class="button" href="/caso/2">
+                Abrir expediente
+            </a>
+        </section>
+
+    </div>
+
+</main>
+
+</body>
+</html>
