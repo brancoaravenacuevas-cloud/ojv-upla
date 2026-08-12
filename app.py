@@ -140,7 +140,7 @@ def create_record(case_id):
     filename = secure_filename(file.filename) if file and file.filename else None
 
     con = db()
-        try:
+    try:
         con.execute('BEGIN IMMEDIATE')
         row = con.execute('SELECT COALESCE(MAX(folio),0)+1 AS next_folio FROM records WHERE case_id=?', (case_id,)).fetchone()
         folio = int(row['next_folio'])
