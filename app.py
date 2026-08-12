@@ -185,25 +185,27 @@ def create_record(case_id):
     return jsonify(ok=True, record=record, email_sent=email_ok, email_error=email_error)
 
 
-@app.get('/api/actuaciones/<int:record_id>/archivo')
+@app.get('/api/actuaciones/<int:record_id>/archivo'
 def record_file(record_id):
     con = db()
     row = con.execute('SELECT * FROM records WHERE id=?', (record_id,)).fetchone()
     con.close()
+
     if not row or not row['stored_name']:
         abort(404)
-dropbox_path = f"/OJV UPLA/{row['stored_name']}"
 
-try:
-    metadata, response = dbx.files_download(dropbox_path)
-    from io import BytesIO
-    return send_file(
-        BytesIO(response.content),
-        download_name=f"Folio_{int(row['folio']):03d}_{row['filename'] or 'documento'}",
-        as_attachment=False
-    )
-except Exception:
-    abort(404)
+    dropbox_path = f"/OJV UPLA/{row['stored_name']}"
+
+    try:
+        metadata, response = dbx.files_download(dropbox_path)
+        from io import BytesIO
+        return send_file(
+            BytesIO(response.content),
+            download_name=f"Folio_{int(row['folio']):03d}_{row['filename'] or 'documento'}",
+            as_attachment=False
+        )
+    except Exception:
+        abort(404)
 
 
 @app.delete('/api/casos/<case_id>/actuaciones/<int:record_id>')
