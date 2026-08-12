@@ -1,6 +1,7 @@
 import os
 import sqlite3
 import smtplib
+import dropbox
 from datetime import datetime
 from email.message import EmailMessage
 from pathlib import Path
@@ -22,6 +23,8 @@ SMTP_USER = os.getenv('SMTP_USER', '')
 SMTP_APP_PASSWORD = os.getenv('SMTP_APP_PASSWORD', '')
 SMTP_HOST = os.getenv('SMTP_HOST', 'smtp.gmail.com')
 SMTP_PORT = int(os.getenv('SMTP_PORT', '465'))
+DROPBOX_ACCESS_TOKEN = os.getenv('DROPBOX_ACCESS_TOKEN')
+dbx = dropbox.Dropbox(DROPBOX_ACCESS_TOKEN)
 
 CASES = {
     '1': {
@@ -144,7 +147,8 @@ def create_record(case_id):
         stored_name = None
         if file and filename:
             stored_name = f"{case_id}_{folio}_{os.urandom(8).hex()}_{filename}"
-            file.save(UPLOADS / stored_name)
+            with file.stream as f:
+    dbx.files_upload(f.read(), f'/OJV UPLA/{stored_name}', mode=dropbox.files.WriteMode.overwrite)
         cur = con.execute('''INSERT INTO records
             (case_id, folio, created_at, type, party, title, description, filename, stored_name)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)''',
@@ -178,10 +182,18 @@ def record_file(record_id):
     con.close()
     if not row or not row['stored_name']:
         abort(404)
-    path = UPLOADS / row['stored_name']
-    if not path.exists():
-        abort(404)
-    return send_file(path, download_name=f"Folio_{int(row['folio']):03d}_{row['filename'] or 'documento'}")
+dropbox_path = f"/OJV UPLA/{row['stored_name']}"
+
+try:
+    metadata, response = dbx.files_download(dropbox_path)
+    from io import BytesIO
+    return send_file(
+        BytesIO(response.content),
+        download_name=f"Folio_{int(row['folio']):03d}_{row['filename'] or 'documento'}",
+        as_attachment=False
+    )
+except Exception:
+    abort(404)
 
 
 @app.delete('/api/casos/<case_id>/actuaciones/<int:record_id>')
