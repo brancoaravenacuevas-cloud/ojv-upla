@@ -147,7 +147,7 @@ def create_record(case_id):
         stored_name = None
                 if file and filename:
             stored_name = f"{case_id}_{folio}_{os.urandom(8).hex()}_{filename}"
-            with file.stream as f:
+                with file.stream as f:
                 dbx.files_upload(
                     f.read(),
                     f'/OJV UPLA/{stored_name}',
