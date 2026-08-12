@@ -140,24 +140,29 @@ def create_record(case_id):
     filename = secure_filename(file.filename) if file and file.filename else None
 
     con = db()
-    try:
+        try:
         con.execute('BEGIN IMMEDIATE')
         row = con.execute('SELECT COALESCE(MAX(folio),0)+1 AS next_folio FROM records WHERE case_id=?', (case_id,)).fetchone()
         folio = int(row['next_folio'])
         stored_name = None
+
         if file and filename:
             stored_name = f"{case_id}_{folio}_{os.urandom(8).hex()}_{filename}"
             with file.stream as f:
-            dbx.files_upload(
-                f.read(),
-                f'/OJV UPLA/{stored_name}',
-                mode=dropbox.files.WriteMode.overwrite
-            )
-                
+                dbx.files_upload(
+                    f.read(),
+                    f'/OJV UPLA/{stored_name}',
+                    mode=dropbox.files.WriteMode.overwrite
+                )
+
+
+
         cur = con.execute('''INSERT INTO records
             (case_id, folio, created_at, type, party, title, description, filename, stored_name)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)''',
             (case_id, folio, now, type_, party, title, desc, filename, stored_name))
+                
+
         record_id = cur.lastrowid
         con.commit()
     except Exception:
